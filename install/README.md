@@ -1,4 +1,4 @@
-# Install Spinnaker on Ubuntu 20 LTS
+# Install Spinnaker on Ubuntu 18.04 LTS
 
 ### setup & configure Spinnaker on single Ubuntu VM
 
@@ -61,13 +61,13 @@ hal config version edit --version $VERSION
 ```
 
 > **configure storage**
+
+* Spinnaker requires an external storage provider for persisting your Application settings and configured Pipelines. Because these data are sensitive and can be costly to lose, it is recommend you use a hosted storage solution you are confident in
+
+* Currently, Halyard only allows you to use the Redis instance that Halyard provisions/installs on your behalf, you don’t need to preconfigure anything to get this storage source working
+
 ```
-Spinnaker requires an external storage provider for persisting your Application settings and configured Pipelines. Because these data are sensitive and can be costly to lose, it is recommend you use a hosted storage solution you are confident in
-
-Currently, Halyard only allows you to use the Redis instance that Halyard provisions/installs on your behalf, you don’t need to preconfigure anything to get this storage source working
-
-hal config storage edit --type redis
-
+* hal config storage edit --type redis
 ```
 [Supported storage solutions](https://spinnaker.io/setup/install/storage/)
 
