@@ -48,8 +48,28 @@ hal -v
 
 > **List the available versions**
 ```
+note: run as devops user ## su - devops
+
 hal version list
 ```
+> **set the version you want to deploy"
+```
+note: run as devops user ## su - devops
+
+VERSION=1.24.4
+hal config version edit --version $VERSION
+```
+
+> **configure storage**
+```
+Spinnaker requires an external storage provider for persisting your Application settings and configured Pipelines. Because these data are sensitive and can be costly to lose, it is recommend you use a hosted storage solution you are confident in
+
+Currently, Halyard only allows you to use the Redis instance that Halyard provisions/installs on your behalf, you don’t need to preconfigure anything to get this storage source working
+
+hal config storage edit --type redis
+
+```
+[Supported storage solutions](https://spinnaker.io/setup/install/storage/)
 
 > **Deploy spinnaker**
 
@@ -60,7 +80,7 @@ hal version list
 * We'll have to specify the 0.0.0.0 host in both gate.yml and deck.yml in our default Halyard deployment
 
 ```
-su - devops
+note: run as devops user   ## su - devops
 
 mkdir -p /home/devops/.hal/default/service-settings
 
@@ -70,6 +90,10 @@ echo "host: 0.0.0.0" | tee \
 
 ## run below command to deploy Spinnaker
 
+note: run as root user
+
+sudo apt update
+sudo apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 hal deploy apply
 ```
 > **Connect to the Spinnaker UI**
@@ -78,35 +102,3 @@ navigating to the instance’s public IP address on port 9000 in your browser.
 
 http://publicip:9000/
 ```
-
-
-
-
-
-
-  2)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### A machine on which to install Halyard
-
-* This can be a local machine or VM (Ubuntu 14.04/16.04, Debian, or macOS), or it can be a Docker container. Make sure it has at least 12GB of memory.
-
-* A Kubernetes cluster on which to install Spinnaker itself
-
-#### it is recommend at least 4 cores and 16GB of RAM available in the cluster.
-
-#### `we can also install Spinnaker on a single local machine, making sure the machine has the 4 cores and 16GB`
