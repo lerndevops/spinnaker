@@ -41,15 +41,15 @@ Check whether Halyard was installed properly
 hal -v
 ```
 
-### Deploy Spinnaker and Connect to the UI
+> [More Information can be found here](https://spinnaker.io/setup/install/halyard/#install-on-debianubuntu-and-macos)
+
+
+### Step2: Deploy Spinnaker and Connect to the UI
 
 > **List the available versions**
 ```
 hal version list
 ```
-
-> [More Information can be found here](https://spinnaker.io/setup/install/halyard/#install-on-debianubuntu-and-macos)
-
 
 > **Deploy spinnaker**
 
