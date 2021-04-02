@@ -13,10 +13,17 @@
 > `it is recommended to install Halyard on a machine with at least 12GB of RAM.`
 
 > **Halyard requires Java 11 to be installed**
+```
+Install JAVA
+
+	sudo add-apt-repository ppa:openjdk-r/ppa
+	sudo apt-get update
+	sudo apt-get install -y openjdk-11-jdk
 
 ```
-Get the latest version of Halyard
 
+> **Get the latest version of Halyard**
+```
 For Debian/Ubuntu:
 
 cd /tmp ; curl -O https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
@@ -34,7 +41,43 @@ Check whether Halyard was installed properly
 hal -v
 ```
 
+### Deploy Spinnaker and Connect to the UI
+
+> **List the available versions**
+```
+hal version list
+```
+
 > [More Information can be found here](https://spinnaker.io/setup/install/halyard/#install-on-debianubuntu-and-macos)
+
+
+> **Deploy spinnaker**
+
+* Halyard installs Spinnaker in its most locked-down form, on a local deployment Spinnaker binds to localhost intentionally by default. because Your Spinnaker instance has the ability to deploy and destroy a lot of infrastructure in whatever accounts it manages, and opening it to the public is not a good idea without authentication enabled.
+
+* we can open Gate and Deck for external access. To do this for a Local environment, we need to hook into the custom service settings feature of Halyard.
+
+* We'll have to specify the 0.0.0.0 host in both gate.yml and deck.yml in our default Halyard deployment
+
+```
+su - devops
+
+mkdir -p /home/devops/.hal/default/service-settings
+
+echo "host: 0.0.0.0" | tee \
+    ~/.hal/default/service-settings/gate.yml \
+    ~/.hal/default/service-settings/deck.yml
+
+## run below command to deploy Spinnaker
+
+hal deploy apply
+```
+> **Connect to the Spinnaker UI**
+```
+navigating to the instance’s public IP address on port 9000 in your browser.
+
+http://publicip:9000/
+```
 
 
 
